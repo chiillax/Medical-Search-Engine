@@ -25,30 +25,6 @@ def index(request):
     return render(request, "t/index.html", {'title': 'Medical Search Engine', 'query': q})
 
 
-# def home(request):
-#     if request.method == "POST":
-#         form = DiseaseForm(request.POST)
-#         if form.is_valid():
-#             name = form.cleaned_data['name']
-#             # disease = get_object_or_404(Disease, pk=name)
-#             c = connection.cursor()
-#             try:
-#                 c.execute('SELECT * FROM t_disease where name=%s', [name])
-#                 q = dictfetchall(c)
-#             finally:
-#                 c.close()
-#             return redirect('disease_detail', pk=q[0]['name'])
-#     else:
-#         form = DiseaseForm()
-#     c = connection.cursor()
-#     try:
-#         c.execute('SELECT * FROM t_disease')
-#         q = dictfetchall(c)
-#     finally:
-#         c.close()
-#     return render(request, 't/home.html', {'query': q})
-
-
 def disease_detail(request, pk):
     c = connection.cursor()
     try:
@@ -131,7 +107,7 @@ def search(request):
             if name not in d:
                 messages = {
                     "message": ' Disease does not exists in database.'}
-                return render(request, 't/w3.html', {'diseases': q, 'medicines': q1, 'messages': messages})
+                return render(request, 't/home.html', {'diseases': q, 'medicines': q1, 'messages': messages})
 
             else:
                 c.execute('SELECT * FROM t_disease where name=%s', [name])
@@ -158,7 +134,7 @@ def search(request):
             if medicine not in d:
                 messages = {
                     "message": ' Medicine does not exists in database.'}
-                return render(request, 't/w3.html', {'diseases': q, 'medicines': q1, 'symptoms': q2, 'messages': messages})
+                return render(request, 't/home.html', {'diseases': q, 'medicines': q1, 'symptoms': q2, 'messages': messages})
 
             else:
                 c.execute('SELECT * FROM t_medicine where name=%s', [medicine])
@@ -170,4 +146,4 @@ def search(request):
         return render(request, 't/medicine_detail.html', {'medicines': medicines, 'pk': medicine})
 
     else:
-        return render(request, 't/w3.html', {'diseases': q, 'medicines': q1})
+        return render(request, 't/home.html', {'diseases': q, 'medicines': q1})
