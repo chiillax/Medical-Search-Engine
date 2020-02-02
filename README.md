@@ -1,2 +1,2 @@
 # Medical-Search-Engine
-A DBMS Miniproject on Medical Search Engine
+A Database Management System(DBMS432C) Miniproject on Medical Search Engine
